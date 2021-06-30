@@ -10,7 +10,7 @@ size_t	ft_strlen(const char *string)
 	return (i);
 }
 
-char *find_newline(char *str)
+char	*find_newline(char *str)
 {
 	while (*str)
 	{
@@ -43,15 +43,16 @@ char	*ft_strdup(char *str)
 
 char	*ft_strjoin(char *remainder, char *buf)
 {
-	char *result;
-	int i;
-	int j;
+	char	*result;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
 	if (!remainder)
 		return (ft_strdup(buf));
-	result = (char *)malloc(sizeof(char) * (ft_strlen(buf) + ft_strlen(remainder) + 1));
+	result = (char *)
+		malloc(sizeof(char) * (ft_strlen(buf) + ft_strlen(remainder) + 1));
 	if (!result)
 		return (NULL);
 	while (remainder[i])

@@ -1,9 +1,8 @@
-#include <stdio.h>
 #include "get_next_line.h"
 
 char	*read_file(int fd, char *remainder, char *buf)
 {
-	int read_size;
+	ssize_t	read_size;
 
 	read_size = 1;
 	while (read_size > 0)
@@ -17,9 +16,9 @@ char	*read_file(int fd, char *remainder, char *buf)
 	return (remainder);
 }
 
-int remainder_checker(char **line, char **remainder, char *p_n)
+int	remainder_checker(char **line, char **remainder, char *p_n)
 {
-	char *temp;
+	char	*temp;
 
 	if (!p_n)
 	{
@@ -40,34 +39,28 @@ int remainder_checker(char **line, char **remainder, char *p_n)
 	temp = ft_strdup(p_n);
 	free(*remainder);
 	*remainder = temp;
-	return(1);
+	return (1);
 }
 
-int get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
-	static char *remainder;
-	char	buf[BUFFER_SIZE + 1];
-	char	*p_n;
+	static char	*remainder;
+	char		buf[BUFFER_SIZE + 1];
+	char		*p_n;
 
-	*line = ft_strdup("");
 	if ((fd < 0)
-		|| (line == NULL)
 		|| (BUFFER_SIZE <= 0)
-		|| (read(fd, buf, 0) < 0)
-		|| (!*line))
+		|| (read(fd, buf, 0) < 0))
 		return (-1);
+	*line = ft_strdup("");
 	remainder = read_file(fd, remainder, buf);
 	if (!remainder)
-		return(0);
+		return (0);
 	if (*line)
 	{
 		free(*line);
 		*line = NULL;
 	}
 	p_n = find_newline(remainder);
-	return (remainder_checker(line, &remainder,p_n));
+	return (remainder_checker(line, &remainder, p_n));
 }
-//int main() {
-//	printf("Hello, World!\n");
-//	return 0;
-//}
